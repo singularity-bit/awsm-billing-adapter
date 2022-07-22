@@ -1,4 +1,0 @@
-APOLLO_KEY=service:awsm-billing:sQKuPDNogR6fx4c2JtX1nw \
-  rover subgraph publish awsm-billing@current \
-  --name products --schema ./products-schema.graphql \
-  --routing-url http://products.prod.svc.cluster.local:4001/graphql
