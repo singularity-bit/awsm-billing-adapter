@@ -6,12 +6,13 @@ import { applyMiddleware } from "graphql-middleware";
 import express from 'express';
 import { extractToken, verifyToken } from './helpers/jwt';
 import permissions from './helpers/permissions';
+import cors from 'cors'
 import * as dotenv from 'dotenv'
 
 dotenv.config()
 const port = 4000;
 const app = express();
-
+app.use(cors())
 
 async function startApolloServer(typeDefs:any,resolvers:any){
 
@@ -26,7 +27,7 @@ async function startApolloServer(typeDefs:any,resolvers:any){
       const user =verifyToken(token);
 
       return { user };
-    }
+    },
 
   });
   await server.start();

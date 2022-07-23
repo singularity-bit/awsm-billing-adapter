@@ -26,7 +26,7 @@ export const settings = [
     }];
 export const users=[{
     id:11,
-    email:'admin',
+    email:'admin@gmail.com',
     password:'111',
     role:'ADMIN',
     permissions:"ANY"
