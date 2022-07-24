@@ -8,10 +8,17 @@ import { extractToken, verifyToken } from "./helpers/jwt";
 import permissions from "./helpers/permissions";
 import cors from "cors";
 import * as dotenv from "dotenv";
+import mongoose from "mongoose";
 
 dotenv.config();
 const port = 4000;
 const app = express();
+
+const url = `mongodb+srv://${process.env.CLUSTER_USER}:${process.env.CLUSTER_PW}@${process.env.CLUSTER_URL}`;
+
+mongoose.connect(url, {
+  dbName: "Billings-db",
+});
 
 async function startApolloServer(typeDefs: any, resolvers: any) {
   const server = new ApolloServer({

@@ -1,19 +1,15 @@
-import { pages, settings, users } from "../data/data";
+import { pages, settings, users } from "../database/data";
 import bcrypt from "bcrypt";
-import dotenv from "dotenv";
-import { AuthenticationError } from "apollo-server-express";
+import { AuthenticationError, UserInputError } from "apollo-server-express";
 import { generateToken } from "../helpers/jwt";
+import { InputLogin, UserData } from "../models";
+import { User } from "../database/schema";
+import mongoose, { Error } from "mongoose";
+import { authUser, createUser } from "./utilis";
 
 export const resolvers = {
   Query: {
     navigation(parent: any, args: any, context: { user: any }, info: any) {
-      console.log("context", context?.user?.data?.email);
-      const user = users.find(
-        (user) => user.email === context?.user?.data?.email
-      );
-      if (!user) {
-        throw new AuthenticationError("Invalid credentials");
-      }
       return pages;
     },
     profileSettings(parent: any, args: any, context: { user: any }, info: any) {
@@ -48,19 +44,19 @@ export const resolvers = {
     },
   },
   Mutation: {
-    login(_parent: any, { email, password }: any) {
-      const user = users.find(
-        (user) => user.email === email && user.password === password
-      );
-      if (!user) {
-        throw new AuthenticationError("Invalid credentials");
-      } else {
-        const { id, email, permissions, role } = user;
-        return {
-          token: generateToken({ id, email, permissions, role }),
-          user: { id, email, permissions, role },
-        };
-      }
+    async login(_parent: any, { input: { email, password } }: InputLogin) {
+      const user = await authUser({ input: { email, password } });
+      return user;
+    },
+    async register(
+      _parent: any,
+      { input: { email, password, firstName, lastName, cnp } }: UserData
+    ) {
+      const user = await createUser({
+        input: { email, password, firstName, lastName, cnp },
+      });
+
+      return user;
     },
   },
 };

@@ -1,3 +1,4 @@
+import { allow } from "graphql-shield";
 import { Permissions, Roles } from "../models/index";
 const { rule, shield, or, and, not } = require("graphql-shield");
 
@@ -56,10 +57,19 @@ const isReadingOwnInvoice = rule({ cache: "contextual" })(
   }
 );
 
-export default shield({
-  Query: {
-    user: or(and(canReadOwnInvoice, isReadingOwnInvoice), canReadAnyInvoice),
-    viewer: isAuthenticated,
-    navigation: and(isAuthenticated, canReadAnyInvoice),
+export default shield(
+  {
+    Query: {
+      user: or(and(canReadOwnInvoice, isReadingOwnInvoice), canReadAnyInvoice),
+      viewer: isAuthenticated,
+      navigation: and(isAuthenticated),
+    },
+    Mutation: {
+      login: allow,
+      register: allow,
+    },
   },
-});
+  {
+    allowExternalErrors: allow,
+  }
+);

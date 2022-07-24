@@ -9,7 +9,8 @@ export const typeDefs = gql`
     viewer: User!
   }
   type Mutation {
-    login(email: String!, password: String!): SignInRespose
+    login(input: LoginInput): SignInRespose
+    register(input: RegisterInput): SignUpRespose
   }
   type Links {
     name: String!
@@ -29,20 +30,27 @@ export const typeDefs = gql`
     id: ID!
     email: String!
     password: String!
+    firstName: String!
+    lastName: String!
+    cnp: String
     role: Roles!
     permissions: ReadPersmissions!
   }
-  input UserInput {
+  input LoginInput {
     email: String!
     password: String!
-    role: Roles!
+  }
+  input RegisterInput {
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    cnp: String
   }
   type SignInRespose {
     token: String
-    user: User
   }
   type SignUpRespose {
     token: String
-    error: String
   }
 `;
