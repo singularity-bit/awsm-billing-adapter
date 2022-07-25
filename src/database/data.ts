@@ -20,11 +20,7 @@ export const settings = [
   {
     name: "Dashboard",
     path: "dashboard",
-  },
-  {
-    name: "Logout",
-    path: "logout",
-  },
+  }
 ];
 export const users = [
   {

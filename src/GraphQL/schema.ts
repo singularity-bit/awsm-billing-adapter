@@ -5,8 +5,8 @@ export const typeDefs = gql`
     navigation: [Links!]
     profileSettings: [Links!]
     user(id: Int): User
+    currentUser:TokenUser
     users: [User]
-    viewer: User!
   }
   type Mutation {
     login(input: LoginInput): SignInRespose
@@ -24,6 +24,16 @@ export const typeDefs = gql`
   enum ReadPersmissions {
     ANY
     OWN
+  }
+  type TokenData{
+      email: String!
+    firstName: String!
+    lastName: String!
+    role: Roles!
+    permissions: ReadPersmissions!
+  }
+  type TokenUser{
+    user:TokenData
   }
 
   type User {
@@ -46,6 +56,8 @@ export const typeDefs = gql`
     firstName: String!
     lastName: String!
     cnp: String
+    role: Roles!
+    permissions: ReadPersmissions!
   }
   type SignInRespose {
     token: String

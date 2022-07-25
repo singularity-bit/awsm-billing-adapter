@@ -9,7 +9,7 @@ const userChema = new Schema<IUser>({
   email: { type: String, required: true },
   cnp: { type: String },
   password: { type: String, required: true },
-  permissions: { type: [String] },
+  permissions: { type: String },
   role: { type: String },
 });
 

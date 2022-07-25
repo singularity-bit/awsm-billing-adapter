@@ -9,6 +9,7 @@ import permissions from "./helpers/permissions";
 import cors from "cors";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
+import { TokenData } from "./models";
 
 dotenv.config();
 const port = 4000;
@@ -29,7 +30,6 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
     context: ({ req }) => {
       const token = extractToken(req);
       const user = verifyToken(token);
-
       return { user };
     },
     csrfPrevention: true,

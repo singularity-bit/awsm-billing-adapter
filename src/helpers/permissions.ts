@@ -61,8 +61,8 @@ export default shield(
   {
     Query: {
       user: or(and(canReadOwnInvoice, isReadingOwnInvoice), canReadAnyInvoice),
-      viewer: isAuthenticated,
-      navigation: and(isAuthenticated),
+      navigation: isAuthenticated,
+      currentUser:isAuthenticated
     },
     Mutation: {
       login: allow,

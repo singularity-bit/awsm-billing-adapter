@@ -23,8 +23,21 @@ export type UserData = {
     lastName: string;
     cnp?: string;
     password: string;
+    role?:Roles;
+    permissions?:Permissions
   };
 };
+
+export interface TokenData{
+    user:IUserPublicData;
+}
+export interface IUserPublicData{
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: Roles;
+  permissions: Permissions;
+}
 export interface IUser {
   id: typeof mongoose.Schema.Types.ObjectId;
   email: string;
@@ -33,5 +46,5 @@ export interface IUser {
   cnp?: string;
   password: string;
   role: Roles;
-  permissions: Permissions[];
+  permissions: Permissions;
 }

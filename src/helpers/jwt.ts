@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { users } from "../database/data";
+import { TokenData } from "../models";
 
 export const verifyToken = (token: any) => {
   return jwt.verify(
@@ -15,8 +15,8 @@ export const verifyToken = (token: any) => {
   );
 };
 
-export const generateToken = (data: any) => {
-  return jwt.sign({ data }, process.env.PRIVATE_KEY!, {
+export const generateToken = ({user}: TokenData) => {
+  return jwt.sign({ user }, process.env.PRIVATE_KEY!, {
     algorithm: "HS256",
     expiresIn: "1d",
   });
