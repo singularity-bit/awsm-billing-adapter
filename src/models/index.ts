@@ -48,3 +48,19 @@ export interface IUser {
   role: Roles;
   permissions: Permissions;
 }
+
+enum InvoiceStatus{
+  PENDING='pending',
+  PAID='paid'
+}
+export interface Invoice{
+  id: typeof mongoose.Schema.Types.ObjectId;
+  client:string;
+  totalAmount:string;
+  currentAmount:string;
+  deptAmount:string;
+  project:string;
+  creationDate:string;
+  dueDate:string;
+  status:InvoiceStatus;
+}
