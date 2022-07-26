@@ -1,6 +1,6 @@
 import { pages, settings, users } from "../database/data";
 import bcrypt from "bcrypt";
-import { AuthenticationError, UserInputError } from "apollo-server-express";
+import { AuthenticationError, UserInputError ,ForbiddenError} from "apollo-server-express";
 import { generateToken } from "../helpers/jwt";
 import { InputLogin, Permissions, Roles, TokenData, UserData } from "../models";
 import { User } from "../database/schema";
@@ -17,6 +17,9 @@ export const resolvers = {
     },
     async currentUser(parent: any, args: any, context: { user: any }, info: any){
       const user=context.user.user
+      if(!user){
+        throw new ForbiddenError('User token expired, please contact admin')
+      }
       return {user}
     },
     user(parent: any, args: { id: any }, context: any, info: any) {

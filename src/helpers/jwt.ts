@@ -18,7 +18,6 @@ export const verifyToken = (token: any) => {
 export const generateToken = ({user}: TokenData) => {
   return jwt.sign({ user }, process.env.PRIVATE_KEY!, {
     algorithm: "HS256",
-    expiresIn: "1d",
   });
 };
 
