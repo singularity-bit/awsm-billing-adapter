@@ -33,6 +33,7 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
       return { user };
     },
     csrfPrevention: true,
+    cache:'bounded'
   });
   await server.start();
   server.applyMiddleware({
