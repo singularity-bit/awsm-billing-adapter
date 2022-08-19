@@ -1,3 +1,5 @@
+import { DashboardCardProps } from "../models";
+
 export const pages = [
   {
     name: "Home",
@@ -38,3 +40,37 @@ export const users = [
     permissions: "OWN",
   },
 ];
+export const UserDashboard:DashboardCardProps[]=[
+  {
+    icon: 'ReceiptOutlinedIcon',
+    title: 'invoices',
+    content: '14'
+},{
+  icon: 'PaidOutlinedIcon',
+  title: 'paid',
+  content: '$ 49K'
+}
+]
+
+export const AdminDashboard: DashboardCardProps[] = [
+  {
+      icon: 'GroupOutlinedIcon',
+      title: 'clients',
+      content: '12'
+  },
+  {
+      icon: 'ReceiptOutlinedIcon',
+      title: 'invoices',
+      content: '14'
+  },
+  {
+      icon: 'DownloadingOutlinedIcon',
+      title: 'invoiced',
+      content: '$ 65K'
+  },
+  {
+      icon: 'PaidOutlinedIcon',
+      title: 'paid',
+      content: '$ 49K'
+  }
+]

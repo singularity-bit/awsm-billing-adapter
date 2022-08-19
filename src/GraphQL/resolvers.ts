@@ -1,4 +1,4 @@
-import { pages, settings, users } from "../database/data";
+import { AdminDashboard, pages, settings, UserDashboard, users } from "../database/data";
 import bcrypt from "bcrypt";
 import { AuthenticationError, UserInputError ,ForbiddenError} from "apollo-server-express";
 import { generateToken } from "../helpers/jwt";
@@ -11,6 +11,18 @@ export const resolvers = {
   Query: {
     navigation(parent: any, args: any, context: { user: any }, info: any) {
       return pages;
+    },
+    async dashboard(parent: any, args: any, context: { user: any }, info: any){
+      const userEmail = context.user.user.email as string ;
+
+      const {user} = await findUser({email:userEmail})
+      if(!user){
+        throw new ForbiddenError('Access denied')
+      }
+      const userRole=user?.role;
+      if (userRole===Roles.ADMIN) return AdminDashboard
+      return UserDashboard
+
     },
     profileSettings(parent: any, args: any, context: { user: any }, info: any) {
       return settings;

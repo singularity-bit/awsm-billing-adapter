@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-
+import mongoose,{Document} from "mongoose";
 export enum Roles {
   ADMIN = "ADMIN",
   CLIENT = "CLIENT",
@@ -38,7 +37,7 @@ export interface IUserPublicData{
   role: Roles;
   permissions: Permissions;
 }
-export interface IUser {
+export interface IUser extends Document {
   id: typeof mongoose.Schema.Types.ObjectId;
   email: string;
   firstName: string;
@@ -63,4 +62,9 @@ export interface Invoice{
   creationDate:string;
   dueDate:string;
   status:InvoiceStatus;
+}
+export type DashboardCardProps={
+  title?: string;
+  icon?: 'GroupOutlinedIcon' | 'ReceiptOutlinedIcon' | 'DownloadingOutlinedIcon' | 'PaidOutlinedIcon'
+  content?: string | number
 }

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { Invoice, IUser, Permissions, Roles } from "../models";
 const { Schema } = mongoose;
 
@@ -25,4 +25,4 @@ const invoiceSchema=new Schema<Invoice>({
   totalAmount:{type:String,required:true},
 })
 export const InvoiceCollection=mongoose.model("invoices",invoiceSchema);
-export const User = mongoose.model("users", userChema);
+export const User:Model<IUser> = mongoose.model("users", userChema);

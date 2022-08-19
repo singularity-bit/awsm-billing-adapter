@@ -7,6 +7,7 @@ export const typeDefs = gql`
     user(id: Int): User
     currentUser:TokenUser
     users: [User]
+    dashboard:[Dashboard]
   }
   type Mutation {
     login(input: LoginInput): SignInRespose
@@ -34,6 +35,11 @@ export const typeDefs = gql`
   }
   type TokenUser{
     user:TokenData
+  }
+  type Dashboard{
+    icon: String,
+    title: String,
+    content: String
   }
 
   type User {

@@ -42,8 +42,10 @@ export const createUser = async ({
 };
 
 export const authUser = async ({ input: { email, password } }: InputLogin) => {
+
   const user = await User.findOne({ email });
-  const validPw = await bcrypt.compare(password, user?.password || "");
+  const validPw = await bcrypt.compare(password, user?.password!);
+  console.log('validPw',validPw)
   if (!user || !validPw) {
     throw new AuthenticationError("Invalid credentials");
   }
@@ -63,7 +65,7 @@ export const authUser = async ({ input: { email, password } }: InputLogin) => {
 
 
 export const findUser=async ({email}: Pick<IUser,'email'>)=>{
- const user=await User.findOne({email})
+ const user:IUser | null=await User.findOne({email})
 
  if(!user){
   throw new AuthenticationError("user does not exist")
